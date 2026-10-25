@@ -3,9 +3,7 @@
 
 __global__ void vector_sum_atomic(const float* a, float* sum, int n) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
-    if (i < n) {
-        atomicAdd(sum, a[i]);
-    }
+    // TODO: atomically add the corresponding element in a to sum
 }
 
 int main(int argc, char** argv) {
