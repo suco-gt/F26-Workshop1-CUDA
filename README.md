@@ -10,7 +10,7 @@
 - [Tests](#tests)
 - [Benchmark](#benchmark)
 
-## Setup
+## Setup (PACE ICE)
 
 Run the commands below from this repository's root on your **allocated GPU compute node**.
 
@@ -19,6 +19,56 @@ nvidia-smi
 nvcc --version
 make help
 ```
+
+## Setup (Kaggle)
+
+If you can't get a GPU allocation in the ICE cluster, you can use Kaggle instead.
+
+First, create a Kaggle notebook and at the top, select Settings -> Accelerator -> GPU T4 x2
+
+Next, write this into the first cell:
+
+```
+%cd /kaggle/working
+!git clone https://github.com/suco-gt/F26-Workshop1-CUDA.git
+%cd /kaggle/working/F26-Workshop1-CUDA
+
+!nvidia-smi
+!nvcc --version
+!make sol1 ARCH=native
+```
+
+Run the cell. It should display `PASS` at the bottom after finishing.
+
+Create another cell after the first one and put this at the top:
+
+```
+%%writefile exercises/01_vector_add/starter.cu
+```
+
+Then, paste the contents from the corresponding file into the **same** cell, below the pasted first line.
+
+Now, you can edit the exercises. To run the tests, create a third cell below and paste:
+
+```
+!make ex1 ARCH=native
+!make test-ex1 ARCH=native
+```
+
+Then run the cell and you will see the output of the tests.
+
+The other solutions can be completed/executed analogously.
+
+To run the race example, paste `!make race ARCH=native` into a new cell and run the cell.
+
+To run the benchmark, paste:
+
+```
+!make bench ARCH=native
+!make bench ARCH=native N=1048579
+```
+
+into a new cell and run the cell.
 
 ## Exercises
 
